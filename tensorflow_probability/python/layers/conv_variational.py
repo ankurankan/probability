@@ -28,7 +28,6 @@ from tensorflow.python.ops.distributions import util as distribution_util
 
 tfd = tf.contrib.distributions
 
-
 __all__ = [
     'Convolution1DFlipout',
     'Convolution1DReparameterization',
@@ -176,7 +175,7 @@ class _ConvVariational(tf.keras.layers.Layer):
     self.data_format = tf_layers_util.normalize_data_format(data_format)
     self.dilation_rate = tf_layers_util.normalize_tuple(
         dilation_rate, rank, 'dilation_rate')
-    self.activation = activation
+    self.activation = tf.keras.activations.get(activation)
     self.input_spec = tf.layers.InputSpec(ndim=self.rank + 2)
     self.kernel_posterior_fn = kernel_posterior_fn
     self.kernel_posterior_tensor_fn = kernel_posterior_tensor_fn
@@ -533,7 +532,7 @@ class _ConvReparameterization(_ConvVariational):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -687,7 +686,7 @@ class Conv1DReparameterization(_ConvReparameterization):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -842,7 +841,7 @@ class Conv2DReparameterization(_ConvReparameterization):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -998,7 +997,7 @@ class Conv3DReparameterization(_ConvReparameterization):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -1122,7 +1121,7 @@ class _ConvFlipout(_ConvVariational):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -1346,7 +1345,7 @@ class Conv1DFlipout(_ConvFlipout):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -1509,7 +1508,7 @@ class Conv2DFlipout(_ConvFlipout):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
@@ -1673,7 +1672,7 @@ class Conv3DFlipout(_ConvFlipout):
         padding=padding,
         data_format=data_format,
         dilation_rate=dilation_rate,
-        activation=activation,
+        activation=tf.keras.activations.get(activation),
         activity_regularizer=activity_regularizer,
         kernel_posterior_fn=kernel_posterior_fn,
         kernel_posterior_tensor_fn=kernel_posterior_tensor_fn,
